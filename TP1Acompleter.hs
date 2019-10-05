@@ -1,4 +1,5 @@
-
+module TP1Acompleter where
+    
 import Data.List
 
 
@@ -117,6 +118,7 @@ myAppend6 xs ys = myAppend6' xs
 
 -- a vous...
 myInit :: [Int] -> [Int]
+myInit [] = init [] -- to return the same error as init 
 myInit [x] = []
 myInit (x:xs) = x:myInit xs
 
