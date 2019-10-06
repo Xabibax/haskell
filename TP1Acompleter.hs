@@ -182,12 +182,14 @@ myProduct xs = myProduct' xs 1
 
 myTake :: Int -> [Int] -> [Int]
 myTake x ys = myTake' x ys
-    where myTake' 0 ys = ys
-          myTake' x ys = myTake' (x-1) (myInit ys)
+    where myTake' x ys | (myNull ys) = ys
+                       | (myLength' ys) <= x = ys
+                       | otherwise = myTake' x (myInit ys)
 
 myDrop :: Int -> [Int] -> [Int]
 myDrop x ys = myDrop' x ys
-    where myDrop' 0 ys = ys
+    where myDrop' x [] = []
+          myDrop' 0 ys = ys
           myDrop' x (y:ys) = myDrop' (x-1) (ys)
 
 -- cette fonction existe sous le nom !!
