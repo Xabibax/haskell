@@ -143,15 +143,20 @@ myReverse xs | (myNull xs) = []
              | otherwise   = myLast xs:myReverse (myInit xs )
 
 -- iteratif, comparer les complexites experimentalement
-myReverse' :: [Int] -> [Int]
-myReverse' xs = myReverse'' xs []
-    where myReverse'' (x:xs) ys = myReverse'' xs (x:ys)
-          myReverse'' [] ys = ys
-
 myAppendIt :: [Int] -> [Int] -> [Int]
 myAppendIt xs ys = myAppendIt' (myReverse' xs) ys
     where myAppendIt' xs [] = myReverse' xs
           myAppendIt' xs (y:ys) = myAppendIt' (y:xs) ys
+
+myLength' :: [Int] -> Int
+myLength' xs = myLength'' xs
+    where myLength'' (x:xs) = 1 + myLength'' xs
+          myLength'' []     = 0
+
+myReverse' :: [Int] -> [Int]
+myReverse' xs = myReverse'' xs []
+    where myReverse'' (x:xs) ys = myReverse'' xs (x:ys)
+          myReverse'' [] ys = ys
 
 myConcat :: [[Int]] -> [Int]
 myConcat ys = myConcat' [] ys
