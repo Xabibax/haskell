@@ -45,6 +45,12 @@ tests = test [
     "testMyReverse3" ~: "for myReverse [1,2],"          ~: (reverse [1,2])          ~=? (myReverse [1,2]),
     "testMyReverse5" ~: "for myReverse [2,1,5,8,2],"    ~: (reverse [2,1,5,8,2])    ~=? (myReverse [2,1,5,8,2]),
 
+-- myLength' :: [Int] -> [Int]
+    "testMyLength'1" ~: "for myLength' [],"           ~: (length [])             ~=? (myLength' []),
+    "testMyLength'2" ~: "for myLength' [1],"          ~: (length [1])            ~=? (myLength' [1]),
+    "testMyLength'3" ~: "for myLength' [1,2],"        ~: (length [1,2])          ~=? (myLength' [1,2]),
+    "testMyLength'5" ~: "for myLength' [2,1,5,8,2],"  ~: (length [2,1,5,8,2])    ~=? (myLength' [2,1,5,8,2]),
+    
 -- myReverse' :: [Int] -> [Int]
     "testMyReverse'1" ~: "for myReverse' [],"           ~: (reverse [])             ~=? (myReverse' []),
     "testMyReverse'2" ~: "for myReverse' [1],"          ~: (reverse [1])            ~=? (myReverse' [1]),
@@ -76,7 +82,7 @@ tests = test [
     "testMyAnd1" ~: "for myAnd [],"             ~: (and [])             ~=? (myAnd []),
     "testMyAnd2" ~: "for myAnd [True],"         ~: (and [True])         ~=? (myAnd [True]),
     "testMyAnd3" ~: "for myAnd [False],"        ~: (and [False])        ~=? (myAnd [False]),
-    "testMyAnd4" ~: "for myAnd [True,True],"    ~: (and [True,True])    ~=? (myAnd [True,False]),
+    "testMyAnd4" ~: "for myAnd [True,True],"    ~: (and [True,True])    ~=? (myAnd [True,True]),
     "testMyAnd5" ~: "for myAnd [True,False],"   ~: (and [True,False])   ~=? (myAnd [True,False]),
     "testMyAnd6" ~: "for myAnd [False,True],"   ~: (and [False,True])   ~=? (myAnd [False,True]),
     "testMyAnd7" ~: "for myAnd [False,False],"  ~: (and [False,False])  ~=? (myAnd [False,False]),
@@ -97,19 +103,19 @@ tests = test [
     "testMyProduct4" ~: "for myProduct [2,1],"  ~: (product [2,1])  ~=? (myProduct [2,1]),
 
 -- myTake :: Int -> [Int] -> [Int]
-    "testMyTake1" ~: "for myTake [],"           ~: (take 1 [])          ~=? (myTake 1 []),
-    "testMyTake2" ~: "for myTake [1],"          ~: (take 1 [1])         ~=? (myTake 1 [1]),
-    "testMyTake3" ~: "for myTake [1,2],"        ~: (take 1 [1,2])       ~=? (myTake 1 [1,2]),
-    "testMyTake4" ~: "for myTake [2,1],"        ~: (take 1 [2,1])       ~=? (myTake 1 [2,1]),
+    "testMyTake1" ~: "for myTake 1 [],"         ~: (take 1 [])          ~=? (myTake 1 []),
+    "testMyTake2" ~: "for myTake 1 [1],"        ~: (take 1 [1])         ~=? (myTake 1 [1]),
+    "testMyTake3" ~: "for myTake 1 [1,2],"      ~: (take 1 [1,2])       ~=? (myTake 1 [1,2]),
+    "testMyTake4" ~: "for myTake 1 [2,1],"      ~: (take 1 [2,1])       ~=? (myTake 1 [2,1]),
     "testMyTake5" ~: "for myTake 4 [1,4,5],"    ~: (take 4 [1,4,5])     ~=? (myTake 4 [1,4,5]),
     "testMyTake6" ~: "for myTake 2 [1,4,5],"    ~: (take 2 [1,4,5])     ~=? (myTake 2 [1,4,5]),
     "testMyTake7" ~: "for myTake 0 [1,4,5],"    ~: (take 0 [1,4,5])     ~=? (myTake 0 [1,4,5]),
 
 -- myDrop :: Int -> [Int] -> [Int]
-    "testMyDrop1" ~: "for myDrop [],"           ~: (drop 1 [])          ~=? (myDrop 1 []),
-    "testMyDrop2" ~: "for myDrop [1],"          ~: (drop 1 [1])         ~=? (myDrop 1 [1]),
-    "testMyDrop3" ~: "for myDrop [1,2],"        ~: (drop 1 [1,2])       ~=? (myDrop 1 [1,2]),
-    "testMyDrop4" ~: "for myDrop [2,1],"        ~: (drop 1 [2,1])       ~=? (myDrop 1 [2,1]),
+    "testMyDrop1" ~: "for myDrop 1 [],"         ~: (drop 1 [])          ~=? (myDrop 1 []),
+    "testMyDrop2" ~: "for myDrop 1 [1],"        ~: (drop 1 [1])         ~=? (myDrop 1 [1]),
+    "testMyDrop3" ~: "for myDrop 1 [1,2],"      ~: (drop 1 [1,2])       ~=? (myDrop 1 [1,2]),
+    "testMyDrop4" ~: "for myDrop 1 [2,1],"      ~: (drop 1 [2,1])       ~=? (myDrop 1 [2,1]),
     "testMyDrop5" ~: "for myDrop 4 [1,4,5],"    ~: (drop 4 [1,4,5])     ~=? (myDrop 4 [1,4,5]),
     "testMyDrop6" ~: "for myDrop 2 [1,4,5],"    ~: (drop 2 [1,4,5])     ~=? (myDrop 2 [1,4,5]),
     "testMyDrop7" ~: "for myDrop 0 [1,4,5],"    ~: (drop 0 [1,4,5])     ~=? (myDrop 0 [1,4,5]),
