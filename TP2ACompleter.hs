@@ -1,7 +1,4 @@
-
-
-
-
+module TP2ACompleter where
 
 
 
@@ -157,28 +154,40 @@ myFst (x,y) = x
 -- TODO: definir recursivement
 
 myDropWhile :: (a -> Bool) -> [a] -> [a]
-myDropWhile = undefined
+myDropWhile f (x:xs) | f x = myDropWhile f xs
+                     | otherwise = x:xs
+myDropWhile f [] = []
 
 myElem :: Eq a => a -> [a] -> Bool
-myElem = undefined
+myElem x (y:ys) = x == y && myElem x ys
+myElem x [] = False
 
 myNotElem :: Eq a => a -> [a] -> Bool
-myNotElem = undefined
+myNotElem x (y:ys) = x /= y && myNotElem x ys
+myNotElem x [] = True
 
 myFilter :: (a -> Bool) -> [a] -> [a]
-myFilter = undefined
+myFilter f (x:xs) | f x = x:myFilter f xs
+                  | otherwise = myFilter f xs
+myFilter f [] = []
 
 mySplitAt :: Int -> [a] -> ([a],[a])
-mySplitAt = undefined
+mySplitAt i xs | i <= 0 = ([], xs)
+               | i >= myLength xs = (xs,[])
+               | otherwise = (myTake i xs, myDrop i xs)
 
 myZip :: [a] -> [b] -> [(a,b)] 
-myZip = undefined
+myZip (x:xs) (y:ys) = (x,y):myZip xs ys
+myZip _ [] = []
+myZip [] _ = []
 
 myZipWith :: (a -> b -> c) -> [a] -> [b] -> [c] 
-myZipWith = undefined
+myZipWith f (x:xs) (y:ys) = f x y:myZipWith f xs ys
+myZipWith f [] _ = []
+myZipWith f _ [] = []
 
-myCurry :: ((a,b) -> c) -> a -> b -> c
-myCurry = undefined
+-- myCurry :: ((a,b) -> c) -> a -> b -> c
+-- myCurry f x y = f (x,y)
 
 myUncurry :: (a -> b -> c) -> (a,b) -> c
 myUncurry = undefined
