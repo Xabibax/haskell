@@ -172,9 +172,12 @@ myFilter f (x:xs) | f x = x:myFilter f xs
 myFilter f [] = []
 
 mySplitAt :: Int -> [a] -> ([a],[a])
-mySplitAt i xs | i <= 0 = ([], xs)
-               | i >= myLength xs = (xs,[])
-               | otherwise = (myTake i xs, myDrop i xs)
+-- mySplitAt i xs | i <= 0 = ([], xs)
+--                | i >= myLength xs = (xs,[])
+--                | otherwise = (myTake i xs, myDrop i xs)
+mySplitAt 0 xs = ([], xs)
+mySplitAt _ [] = ([], [])
+mySplitAt i (x:xs) = (x:fst (mySplitAt (i-1) xs), snd (mySplitAt (i-1) xs))
 
 myZip :: [a] -> [b] -> [(a,b)] 
 myZip (x:xs) (y:ys) = (x,y):myZip xs ys
