@@ -133,13 +133,13 @@ add' x y = x + y
 add'' :: Int -> Int -> Int
 add'' = \x -> \y -> x + y
 
--- avec foldr
-myReverse'' :: [a] -> [a]
-myReverse'' = undefined
+-- -- avec foldr
+-- myReverse'' :: [a] -> [a]
+-- myReverse'' = undefined
 
--- eta reduction
-myReverse''' :: [a] -> [a]
-myReverse''' = undefined
+-- -- eta reduction
+-- myReverse''' :: [a] -> [a]
+-- myReverse''' = undefined
 
 -- un "nouveau type" String
 
@@ -196,19 +196,13 @@ myCurry f x y = f (x,y)
 myUncurry :: (a -> b -> c) -> (a,b) -> c
 myUncurry f (x,y) = f x y
 
-myZipWith' :: (a -> b -> c) -> [a] -> [b] -> [c] 
-myZipWith' = undefined
+-- myZipWith' :: (a -> b -> c) -> [a] -> [b] -> [c] 
+-- myZipWith' = undefined
 
 myUnzip :: [(a,b)] -> ([a],[b])
 myUnzip (t:ts) = (fst t:fst (myUnzip ts) , snd t:snd (myUnzip ts))
 myUnzip [] = ([],[])
 -- TODO: redefinir en utilisant foldr
--- une fonction plus generale: foldr
--- inferer le type de foldr
--- forme graphique de la liste en peigne
--- myFoldr :: (a -> b -> b) -> b -> [a] -> b
--- myFoldr f k (x:xs) = f x (myFoldr f k xs)
--- myFoldr f k []     = k
 
 myConcat' :: [[a]] -> [a]
 myConcat' xss = foldr (myAppend) [] xss
@@ -234,7 +228,12 @@ myProduct xs = foldr (*) 1 xs
 -- TODO: calculuer les 50 plus petits nombres premiers 2, 3, 5, 7, 11...
 
 premiers :: [Int]
-premiers = undefined
+premiers = 1:premiers' 2
+    where  premiers' x | isPrimal x = x: premiers' (x+1)
+                       | otherwise = premiers' (x+1)
+            where isPrimal x = notDivide [2..x]   
+                            where notDivide (x:xs) | myLength (x:xs) /= 1 = mod (myLast xs) x /= 0 && notDivide xs
+                                                   | otherwise = True
 
 test2 = take 50 premiers
 
