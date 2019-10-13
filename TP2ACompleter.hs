@@ -122,7 +122,8 @@ myAnd' bs = foldr (&&) True bs
 
 -- definir reverse avec foldr
 myReverse' :: [a] -> [a]
-myReverse' = undefined
+myReverse' (x:xs) = foldr (myAppend) [x] [myReverse' xs]
+myReverse' [] = []
 
 -- une parenthese sur les lambda anonymes
 
@@ -189,37 +190,46 @@ myZipWith f (x:xs) (y:ys) = f x y:myZipWith f xs ys
 myZipWith f [] _ = []
 myZipWith f _ [] = []
 
--- myCurry :: ((a,b) -> c) -> a -> b -> c
--- myCurry f x y = f (x,y)
+myCurry :: ((a,b) -> c) -> a -> b -> c
+myCurry f x y = f (x,y)
 
 myUncurry :: (a -> b -> c) -> (a,b) -> c
-myUncurry = undefined
+myUncurry f (x,y) = f x y
 
 myZipWith' :: (a -> b -> c) -> [a] -> [b] -> [c] 
 myZipWith' = undefined
 
 myUnzip :: [(a,b)] -> ([a],[b])
-myUnzip = undefined
-
+myUnzip (t:ts) = (fst t:fst (myUnzip ts) , snd t:snd (myUnzip ts))
+myUnzip [] = ([],[])
 -- TODO: redefinir en utilisant foldr
+-- une fonction plus generale: foldr
+-- inferer le type de foldr
+-- forme graphique de la liste en peigne
+-- myFoldr :: (a -> b -> b) -> b -> [a] -> b
+-- myFoldr f k (x:xs) = f x (myFoldr f k xs)
+-- myFoldr f k []     = k
 
 myConcat' :: [[a]] -> [a]
-myConcat' = undefined
+myConcat' xss = foldr (myAppend) [] xss
 
 myMap' ::  (a -> b) -> [a] -> [b]
-myMap' = undefined
+myMap' f (x:xs) = foldr (myAppend) [f x] [myMap' f xs]
+myMap' f [] = []
 
 myOr' ::  [Bool] -> Bool
-myOr' = undefined
+myOr' xs = foldr (||) False xs
 
 myAny :: (a -> Bool) -> [a] -> Bool
-myAny = undefined
+myAny f (x:xs) = foldr (||) (f x) [myAny f xs]
+myAny f [] = False
 
 myAll :: (a -> Bool) -> [a] -> Bool
-myAll = undefined
+myAll f (x:xs) = foldr (&&) (f x) [myAny f xs]
+myAll f [] = False
 
 myProduct :: [Int] -> Int
-myProduct = undefined
+myProduct xs = foldr (*) 1 xs
 
 -- TODO: calculuer les 50 plus petits nombres premiers 2, 3, 5, 7, 11...
 
