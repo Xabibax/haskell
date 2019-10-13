@@ -160,7 +160,7 @@ myDropWhile f (x:xs) | f x = myDropWhile f xs
 myDropWhile f [] = []
 
 myElem :: Eq a => a -> [a] -> Bool
-myElem x (y:ys) = x == y && myElem x ys
+myElem x (y:ys) = x == y || myElem x ys
 myElem x [] = False
 
 myNotElem :: Eq a => a -> [a] -> Bool
@@ -176,9 +176,9 @@ mySplitAt :: Int -> [a] -> ([a],[a])
 -- mySplitAt i xs | i <= 0 = ([], xs)
 --                | i >= myLength xs = (xs,[])
 --                | otherwise = (myTake i xs, myDrop i xs)
-mySplitAt 0 xs = ([], xs)
 mySplitAt _ [] = ([], [])
-mySplitAt i (x:xs) = (x:fst (mySplitAt (i-1) xs), snd (mySplitAt (i-1) xs))
+mySplitAt i (x:xs) | i <= 0 = ([], (x:xs))
+                   | otherwise = (x:fst (mySplitAt (i-1) xs), snd (mySplitAt (i-1) xs))
 
 myZip :: [a] -> [b] -> [(a,b)] 
 myZip (x:xs) (y:ys) = (x,y):myZip xs ys
@@ -208,7 +208,7 @@ myConcat' :: [[a]] -> [a]
 myConcat' xss = foldr (myAppend) [] xss
 
 myMap' ::  (a -> b) -> [a] -> [b]
-myMap' f (x:xs) = foldr (myAppend) [f x] [myMap' f xs]
+myMap' f (x:xs) = foldr (myAppend) (myMap' f xs) [[f x]]
 myMap' f [] = []
 
 myOr' ::  [Bool] -> Bool
@@ -219,8 +219,8 @@ myAny f (x:xs) = foldr (||) (f x) [myAny f xs]
 myAny f [] = False
 
 myAll :: (a -> Bool) -> [a] -> Bool
-myAll f (x:xs) = foldr (&&) (f x) [myAny f xs]
-myAll f [] = False
+myAll f (x:xs) = foldr (&&) (f x) [myAll f xs]
+myAll f [] = True
 
 myProduct :: [Int] -> Int
 myProduct xs = foldr (*) 1 xs
