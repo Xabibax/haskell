@@ -167,8 +167,9 @@ validOp' :: Op -> Int -> Int -> Bool
 -- validOp' o x y = undefined
 validOp' Sub x y = x>y
 validOp' Div x y = y/=0 && x `mod` y==0 && x/=1
-validOp' Mul x y = x/=1 || y/=1
-validOp' _   _ _ = True
+validOp' Mul x y = (x/=1 || y/=1) && x>=y
+validOp' Add x y = x>=y
+-- validOp' _ _ _ = True
 
 exps4 :: [Int] -> [Exp']
 -- exps4 = undefined
@@ -189,7 +190,7 @@ solutions4 nombres cible =
         es' = filter (\e -> evalExp' e ==cible) es
     in es'
 
-test4 = solutions4 [1,3,7,10,25,50] 765
+test4 = solutions4 [1,3,7,10,25,50] 765 
 
 -- nombre de solutions
 
