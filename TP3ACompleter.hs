@@ -137,17 +137,22 @@ evalExp' (Val' n) = n
 evalExp' (App' _ _ _ n) = n
 
 exps3 :: [Int] -> [Exp']
-exps3 [n] = [Val n]
-exps3 ns = [ App o g d 
+exps3 [n] = [Val' n]
+exps3 ns = [ App' o g d (evalOp o (evalExp' g) (evalExp' d))
   | (gs,ds) <- partitionStricte ns
   , g <- exps3 gs
   , d <- exps3 ds
   , o <- [Add,Sub,Mul,Div]
-  , validOp o (evalExp g) (evalExp d)
+  , validOp o (evalExp' g) (evalExp' d)
   ] 
 
 solutions3 :: [Int] -> Int -> [Exp']
-solutions3 nombres cible = undefined
+solutions3 nombres cible =
+    let ns = permSousListes nombres
+        es = concat (map exps3 ns)
+        es' = filter (\e -> evalExp' e ==cible) es
+    in es'
+
 
 test3 = solutions3 [1,3,7,10,25,50] 765
 
@@ -159,13 +164,30 @@ test3 = solutions3 [1,3,7,10,25,50] 765
 -- - pas de division par 1
 -- - addition et multiplication commutatives (ne considerer qu'un sens (quand les deux operandes sont differents))
 validOp' :: Op -> Int -> Int -> Bool
-validOp' o x y = undefined
+-- validOp' o x y = undefined
+validOp' Sub x y = x>y
+validOp' Div x y = y/=0 && x `mod` y==0 && x/=1
+validOp' Mul x y = x/=1 || y/=1
+validOp' _   _ _ = True
 
 exps4 :: [Int] -> [Exp']
-exps4 = undefined
+-- exps4 = undefined
+exps4 [n] = [Val' n]
+exps4 ns = [ App' o g d (evalOp o (evalExp' g) (evalExp' d))
+  | (gs,ds) <- partitionStricte ns
+  , g <- exps4 gs
+  , d <- exps4 ds
+  , o <- [Add,Sub,Mul,Div]
+  , validOp' o (evalExp' g) (evalExp' d)
+  ] 
 
 solutions4 :: [Int] -> Int -> [Exp']
-solutions4 nombres cible = undefined
+-- solutions4 nombres cible = undefined
+solutions4 nombres cible =
+    let ns = permSousListes nombres
+        es = concat (map exps4 ns)
+        es' = filter (\e -> evalExp' e ==cible) es
+    in es'
 
 test4 = solutions4 [1,3,7,10,25,50] 765
 
