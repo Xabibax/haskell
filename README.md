@@ -27,4 +27,3 @@ To launch tests
 ```bash
 runTests
 ```
-

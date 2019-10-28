@@ -166,8 +166,8 @@ test3 = solutions3 [1,3,7,10,25,50] 765
 validOp' :: Op -> Int -> Int -> Bool
 -- validOp' o x y = undefined
 validOp' Sub x y = x>y
-validOp' Div x y = y/=0 && x `mod` y==0 && x/=1
-validOp' Mul x y = (x/=1 || y/=1) && x>=y
+validOp' Div x y = y/=0 && x `mod` y==0 && y/=1
+validOp' Mul x y = x/=1 && y/=1 && x>=y
 validOp' Add x y = x>=y
 -- validOp' _ _ _ = True
 
@@ -200,7 +200,15 @@ nombreDeSolutions4 = length test4
 -- V) ne retourner qu'une solution exacte ou bien la plus proche 
 
 solutions5 :: [Int] -> Int -> [Exp']
-solutions5 nombres cible = undefined
+-- solutions5 nombres cible = undefined
+-- solutions5 nombres cible =
+--     let ns = permSousListes nombres
+--         es = concat (map exps4 ns)
+--         es' = filter (egal || proche) es
+--             where egal = \e -> evalExp' e == cible
+--                   proche = (elem cible es') || (minimum es' - ) >= (\e -> evalExp' e) <= (maximum es')
+--     in es'
+
 
 test5 = solutions5 [1,3,7,10,25,50] 765
 test6 = solutions5 [1,3,7,10,25,50] 831
@@ -213,3 +221,4 @@ test6 = solutions5 [1,3,7,10,25,50] 831
 -- VII) generalisez certaines fonctions avec de l'ordre superieur afin de reduire la duplication de code dans ce programme
 
 -- misc : cherchez les solutions avec le moins d'operations en priorite
+ 
