@@ -105,7 +105,8 @@ testQ5 = convertPrio2ToPrio [(4,["Bernard","Daniel"]),(3,["Albert","Cedric"])]
   == [(4,"Bernard"),(4,"Daniel"),(3,"Albert"),(3,"Cedric")]
 
 convertPrio2ToPrio :: QueuePrio2 a -> [(Severity,a)]
-convertPrio2ToPrio = undefined
+convertPrio2ToPrio xs = concat (map (convertPrio2ToPrio1') xs)
+  where convertPrio2ToPrio1' (f, xs) = map (\x -> (f, x)) xs
 
 -- Q6 non recursivement
 
@@ -113,7 +114,9 @@ testQ6 = convertPrio2ToPrio' [(4,["Bernard","Daniel"]),(3,["Albert","Cedric"])]
   == [(4,"Bernard"),(4,"Daniel"),(3,"Albert"),(3,"Cedric")]
 
 convertPrio2ToPrio' :: QueuePrio2 a -> QueuePrio a
-convertPrio2ToPrio' = undefined
+convertPrio2ToPrio' xs = foldr (convertPrio2ToPrio'') [] xs
+  where convertPrio2ToPrio'' (f, xs) ys = map (\x -> (f, x)) xs++ys
+
 
 -- Q7 : definir non recursivement
 
@@ -121,7 +124,10 @@ testQ7 = convertPrioToPrio2 [(4,"Bernard"),(4,"Daniel"),(3,"Albert"),(3,"Cedric"
   == [(4,["Bernard","Daniel"]),(3,["Albert","Cedric"])]
   
 convertPrioToPrio2 :: QueuePrio a -> QueuePrio2 a
-convertPrioToPrio2 = undefined
+-- convertPrioToPrio2 = undefined
+convertPrioToPrio2 xs = foldr (convertPrioToPrio2') [] xs
+  where convertPrioToPrio2' x ys = reverse (foldr (enqueuePrio2) ys [x])
+
 
 -- Q8 : definir recursivement sans pattern matching
 
