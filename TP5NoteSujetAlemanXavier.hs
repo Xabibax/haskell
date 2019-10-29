@@ -136,7 +136,15 @@ convertPrioToPrio2Iter :: QueuePrio a -> QueuePrio2 a
 convertPrioToPrio2Iter q = aux q newQueuePrio2
 
 aux :: QueuePrio a -> QueuePrio2 a -> QueuePrio2 a
-aux = undefined
+-- aux = undefined
+aux q1 q2 | (isEmptyPrio q1) = q2
+          | otherwise        = aux q1' (enqueuePrio2 (s,x) q2)
+              where deq = dequeuePrio q1
+                    l   = fst deq
+                    q1' = snd deq
+                    s   = fst l
+                    x   = snd l
+
 
 
 -- la representation des listes en haskell favorise l'acces par la gauche
@@ -152,7 +160,9 @@ tsil1 = Snoc (Snoc (Snoc Lin 1) 2) 3
 -- Q9 definir la fonction equivalente a init
 
 tini :: Tsil a -> Tsil a
-tini = undefined
+-- tini = undefined
+tini (Snoc x y) = x
+tini x          = Lin
 
 test9 = tini tsil1 == Snoc (Snoc Lin 1) 2
 
