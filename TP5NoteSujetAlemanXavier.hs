@@ -125,9 +125,7 @@ testQ7 = convertPrioToPrio2 [(4,"Bernard"),(4,"Daniel"),(3,"Albert"),(3,"Cedric"
   
 convertPrioToPrio2 :: QueuePrio a -> QueuePrio2 a
 -- convertPrioToPrio2 = undefined
-convertPrioToPrio2 xs = foldr (convertPrioToPrio2') [] xs
-  where convertPrioToPrio2' x ys = reverse (foldr (enqueuePrio2) ys [x])
-
+convertPrioToPrio2 xs = map (\x -> (fst x, reverse (snd x))) (foldr (enqueuePrio2) [] xs)
 
 -- Q8 : definir recursivement sans pattern matching
 
