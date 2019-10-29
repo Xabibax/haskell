@@ -1,6 +1,6 @@
 
 -- NOM : Aleman 
--- PRENOM : 
+-- PRENOM : Xavier
 
 -- autorisees : (==), (<=), (++), concat, foldr, fst, map, reverse, snd
 -- des fonctions anonymes, et les constructeurs de listes et de paires
@@ -169,7 +169,9 @@ test9 = tini tsil1 == Snoc (Snoc Lin 1) 2
 -- Q10 definir la fonction equivalente a head
 
 daeh :: Tsil a -> a
-daeh = undefined
+-- daeh = undefined
+daeh (Snoc Lin x) = x
+daeh (Snoc x y)   = daeh x
 
 test10 = daeh tsil1 == 1
 
