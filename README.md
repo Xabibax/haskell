@@ -1,5 +1,4 @@
-# To test TP1Acompleter.hs
-
+# To test
 TP1 tests are written to be used with haskell HUnit
 
 To launch the haskell interpretor :
